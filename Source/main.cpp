@@ -24,6 +24,7 @@ along with Lugaru.  If not, see <http://www.gnu.org/licenses/>.
 #include "Graphic/gamegl.hpp"
 #include "Platform/Platform.hpp"
 #include "User/Settings.hpp"
+#include "Utils/Input.hpp"
 #include "Version.hpp"
 
 #include <fstream>
@@ -164,6 +165,10 @@ SDL_bool sdlEventProc(const SDL_Event& e)
                 toggleFullscreen();
             }
             break;
+        case SDL_CONTROLLERDEVICEADDED:
+        case SDL_CONTROLLERDEVICEREMOVED:
+            Input::handleEvent(e);
+            break;
     }
     return SDL_TRUE;
 }
@@ -184,7 +189,7 @@ bool SetUp()
     DefaultSettings();
 
     if (!SDL_WasInit(SDL_INIT_VIDEO)) {
-        if (SDL_Init(SDL_INIT_VIDEO) == -1) {
+        if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_GAMECONTROLLER) == -1) {
             fprintf(stderr, "SDL_Init() failed: %s\n", SDL_GetError());
             return false;
         }
