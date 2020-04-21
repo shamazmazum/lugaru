@@ -69,7 +69,7 @@ private:
 
     static float checkdelay;
 
-    static vector<std::unique_ptr<Sprite> > sprites;
+    static vector<Sprite> sprites;
 
 public:
     static void DeleteSprite(int which);
@@ -81,15 +81,15 @@ public:
     }
     static void setLastSpriteSpecial(int s)
     {
-        sprites.back()->special = s;
+        sprites.back().special = s;
     }
     static void setLastSpriteSpeed(int s)
     {
-        sprites.back()->speed = s;
+        sprites.back().speed = s;
     }
     static void setLastSpriteAlivetime(float al)
     {
-        sprites.back()->alivetime = al;
+        sprites.back().alivetime = al;
     }
 
     static Texture cloudtexture;
