@@ -346,9 +346,11 @@ void Sprite::Draw()
             sprites[i]->position += sprites[i]->velocity * multiplier;
             sprites[i]->velocity += windvector * multiplier;
         }
+
         if (sprites[i]->type == flamesprite || sprites[i]->type == smoketype) {
             sprites[i]->position += windvector * multiplier / 2;
         }
+
         if ((sprites[i]->type == flamesprite ||
              sprites[i]->type == weaponflamesprite ||
              sprites[i]->type == weaponshinesprite ||
@@ -362,7 +364,8 @@ void Sprite::Draw()
             sprites[i]->size += multiplier / 2;
             sprites[i]->velocity.y += gravity * multiplier * .25;
         }
-        if (sprites[i]->type == breathsprite) {
+
+        else if (sprites[i]->type == breathsprite) {
             sprites[i]->opacity -= multiplier / 2;
             sprites[i]->size += multiplier / 2;
             if (findLength(&sprites[i]->velocity) <= multiplier) {
@@ -375,7 +378,8 @@ void Sprite::Draw()
                 sprites[i]->velocity += slowdown;
             }
         }
-        if (sprites[i]->type == snowsprite) {
+
+        else if (sprites[i]->type == snowsprite) {
             sprites[i]->size -= multiplier / 120;
             sprites[i]->rotation += multiplier * 360;
             sprites[i]->position.y -= multiplier;
@@ -399,7 +403,8 @@ void Sprite::Draw()
                 sprites[i]->position.x -= 12;
             }
         }
-        if (sprites[i]->type == bloodsprite) {
+
+        else if (sprites[i]->type == bloodsprite) {
             bool spritehit = 0;
             sprites[i]->rotation += multiplier * 100;
             sprites[i]->velocity.y += gravity * multiplier;
@@ -479,7 +484,8 @@ void Sprite::Draw()
                 }
             }
         }
-        if (sprites[i]->type == splintersprite) {
+
+        else if (sprites[i]->type == splintersprite) {
             sprites[i]->rotation += sprites[i]->rotatespeed * multiplier;
             sprites[i]->opacity -= multiplier / 2;
             if (sprites[i]->special == 0 || sprites[i]->special == 2 || sprites[i]->special == 3) {
@@ -489,7 +495,8 @@ void Sprite::Draw()
                 sprites[i]->velocity.y += gravity * multiplier * .5;
             }
         }
-        if (sprites[i]->type == flamesprite ||
+
+        else if (sprites[i]->type == flamesprite ||
             sprites[i]->type == weaponflamesprite ||
             sprites[i]->type == weaponshinesprite ||
             sprites[i]->type == bloodflamesprite) {
@@ -508,7 +515,8 @@ void Sprite::Draw()
                 sprites[i]->velocity.y = 1.5;
             }
         }
-        if (sprites[i]->type == smoketype) {
+
+        else if (sprites[i]->type == smoketype) {
             sprites[i]->opacity -= multiplier / 3 / sprites[i]->initialsize;
             sprites[i]->color[0] -= multiplier;
             sprites[i]->color[1] -= multiplier;
@@ -527,6 +535,7 @@ void Sprite::Draw()
             sprites[i]->velocity.y = 1.5;
             sprites[i]->rotation += multiplier * sprites[i]->rotatespeed / 5;
         }
+
         if (sprites[i]->opacity <= 0 || sprites[i]->size <= 0) {
             DeleteSprite(i);
         }
