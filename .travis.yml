@@ -6,7 +6,7 @@ compiler:
 
 install:
   - sudo apt-get -y install cmake libglu1-mesa-dev libopenal-dev libpng++-dev
-  - sudo apt-get -y install libjpeg-dev libjsoncpp-dev libvorbis-dev
+  - sudo apt-get -y install libjpeg-dev libjsoncpp-dev libvorbis-dev libsdl2-dev
 
 before_script:
   - mkdir build && cd build
