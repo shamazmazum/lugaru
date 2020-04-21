@@ -72,7 +72,6 @@ private:
     static vector<Sprite> sprites;
 
 public:
-    static void DeleteSprite(int which);
     static void MakeSprite(int atype, XYZ where, XYZ avelocity, float red, float green, float blue, float asize, float aopacity);
     static void Draw();
     static void deleteSprites()
