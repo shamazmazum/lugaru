@@ -190,21 +190,39 @@ void Sprite::Draw()
             }
         }
         if (sprites[i]->type == snowsprite) {
-            distancemult = (144 - (distsq(&tempviewer, &sprites[i]->position) - (144 * fadestart)) * (1 / (1 - fadestart))) / 144;
+            distancemult = (144 -
+                            (distsq(&tempviewer, &sprites[i]->position) -
+                             (144 * fadestart)) *
+                            (1 / (1 - fadestart))) / 144;
         } else {
-            distancemult = (viewdistsquared - (distsq(&viewer, &sprites[i]->position) - (viewdistsquared * fadestart)) * (1 / (1 - fadestart))) / viewdistsquared;
+            distancemult = (viewdistsquared -
+                            (distsq(&viewer, &sprites[i]->position) -
+                             (viewdistsquared * fadestart)) *
+                            (1 / (1 - fadestart))) / viewdistsquared;
         }
         if (sprites[i]->type == flamesprite) {
             if (distancemult >= 1) {
-                glColor4f(sprites[i]->color[0], sprites[i]->color[1], sprites[i]->color[2], sprites[i]->opacity);
+                glColor4f(sprites[i]->color[0],
+                          sprites[i]->color[1],
+                          sprites[i]->color[2],
+                          sprites[i]->opacity);
             } else {
-                glColor4f(sprites[i]->color[0], sprites[i]->color[1], sprites[i]->color[2], sprites[i]->opacity * distancemult);
+                glColor4f(sprites[i]->color[0],
+                          sprites[i]->color[1],
+                          sprites[i]->color[2],
+                          sprites[i]->opacity * distancemult);
             }
         } else {
             if (distancemult >= 1) {
-                glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], sprites[i]->opacity);
+                glColor4f(sprites[i]->color[0] * lightcolor[0],
+                          sprites[i]->color[1] * lightcolor[1],
+                          sprites[i]->color[2] * lightcolor[2],
+                          sprites[i]->opacity);
             } else {
-                glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], sprites[i]->opacity * distancemult);
+                glColor4f(sprites[i]->color[0] * lightcolor[0],
+                          sprites[i]->color[1] * lightcolor[1],
+                          sprites[i]->color[2] * lightcolor[2],
+                          sprites[i]->opacity * distancemult);
             }
         }
         lasttype = sprites[i]->type;
@@ -212,10 +230,14 @@ void Sprite::Draw()
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
         glTranslatef(sprites[i]->position.x, sprites[i]->position.y, sprites[i]->position.z);
-        if ((sprites[i]->type == flamesprite || sprites[i]->type == weaponflamesprite || sprites[i]->type == weaponshinesprite)) {
+        if ((sprites[i]->type == flamesprite ||
+             sprites[i]->type == weaponflamesprite ||
+             sprites[i]->type == weaponshinesprite)) {
             difference = viewer - sprites[i]->position;
             Normalise(&difference);
-            glTranslatef(difference.x * sprites[i]->size / 4, difference.y * sprites[i]->size / 4, difference.z * sprites[i]->size / 4);
+            glTranslatef(difference.x * sprites[i]->size / 4,
+                         difference.y * sprites[i]->size / 4,
+                         difference.z * sprites[i]->size / 4);
         }
         if (sprites[i]->type == snowsprite) {
             glRotatef(sprites[i]->rotation * .2, 0, .3, 1);
@@ -230,41 +252,74 @@ void Sprite::Draw()
 
         glRotatef(sprites[i]->rotation, 0, 0, 1);
 
-        if ((sprites[i]->type == flamesprite || sprites[i]->type == weaponflamesprite || sprites[i]->type == weaponshinesprite || sprites[i]->type == bloodflamesprite)) {
+        if ((sprites[i]->type == flamesprite ||
+             sprites[i]->type == weaponflamesprite ||
+             sprites[i]->type == weaponshinesprite ||
+             sprites[i]->type == bloodflamesprite)) {
             if (sprites[i]->alivetime < .14) {
-                glScalef(sprites[i]->alivetime / .14, sprites[i]->alivetime / .14, sprites[i]->alivetime / .14);
+                glScalef(sprites[i]->alivetime / .14,
+                         sprites[i]->alivetime / .14,
+                         sprites[i]->alivetime / .14);
             }
         }
-        if (sprites[i]->type == smoketype || sprites[i]->type == snowsprite || sprites[i]->type == weaponshinesprite || sprites[i]->type == breathsprite) {
+        if (sprites[i]->type == smoketype ||
+            sprites[i]->type == snowsprite ||
+            sprites[i]->type == weaponshinesprite ||
+            sprites[i]->type == breathsprite) {
             if (sprites[i]->alivetime < .3) {
                 if (distancemult >= 1) {
-                    glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], sprites[i]->opacity * sprites[i]->alivetime / .3);
+                    glColor4f(sprites[i]->color[0] * lightcolor[0],
+                              sprites[i]->color[1] * lightcolor[1],
+                              sprites[i]->color[2] * lightcolor[2],
+                              sprites[i]->opacity * sprites[i]->alivetime / .3);
                 }
                 if (distancemult < 1) {
-                    glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], sprites[i]->opacity * distancemult * sprites[i]->alivetime / .3);
+                    glColor4f(sprites[i]->color[0] * lightcolor[0],
+                              sprites[i]->color[1] * lightcolor[1],
+                              sprites[i]->color[2] * lightcolor[2],
+                              sprites[i]->opacity * distancemult * sprites[i]->alivetime / .3);
                 }
             }
         }
-        if (sprites[i]->type == splintersprite && sprites[i]->special > 0 && sprites[i]->special != 3) {
+        if (sprites[i]->type == splintersprite &&
+            sprites[i]->special > 0 &&
+            sprites[i]->special != 3) {
             if (sprites[i]->alivetime < .2) {
                 if (distancemult >= 1) {
-                    glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], sprites[i]->alivetime / .2);
+                    glColor4f(sprites[i]->color[0] * lightcolor[0],
+                              sprites[i]->color[1] * lightcolor[1],
+                              sprites[i]->color[2] * lightcolor[2],
+                              sprites[i]->alivetime / .2);
                 } else {
-                    glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], distancemult * sprites[i]->alivetime / .2);
+                    glColor4f(sprites[i]->color[0] * lightcolor[0],
+                              sprites[i]->color[1] * lightcolor[1],
+                              sprites[i]->color[2] * lightcolor[2],
+                              distancemult * sprites[i]->alivetime / .2);
                 }
             } else {
                 if (distancemult >= 1) {
-                    glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], 1);
+                    glColor4f(sprites[i]->color[0] * lightcolor[0],
+                              sprites[i]->color[1] * lightcolor[1],
+                              sprites[i]->color[2] * lightcolor[2], 1);
                 } else {
-                    glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], distancemult);
+                    glColor4f(sprites[i]->color[0] * lightcolor[0],
+                              sprites[i]->color[1] * lightcolor[1],
+                              sprites[i]->color[2] * lightcolor[2],
+                              distancemult);
                 }
             }
         }
-        if (sprites[i]->type == splintersprite && (sprites[i]->special == 0 || sprites[i]->special == 3)) {
+        if (sprites[i]->type == splintersprite &&
+            (sprites[i]->special == 0 || sprites[i]->special == 3)) {
             if (distancemult >= 1) {
-                glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], 1);
+                glColor4f(sprites[i]->color[0] * lightcolor[0],
+                          sprites[i]->color[1] * lightcolor[1],
+                          sprites[i]->color[2] * lightcolor[2], 1);
             } else {
-                glColor4f(sprites[i]->color[0] * lightcolor[0], sprites[i]->color[1] * lightcolor[1], sprites[i]->color[2] * lightcolor[2], distancemult);
+                glColor4f(sprites[i]->color[0] * lightcolor[0],
+                          sprites[i]->color[1] * lightcolor[1],
+                          sprites[i]->color[2] * lightcolor[2],
+                          distancemult);
             }
         }
 
@@ -294,7 +349,10 @@ void Sprite::Draw()
         if (sprites[i]->type == flamesprite || sprites[i]->type == smoketype) {
             sprites[i]->position += windvector * multiplier / 2;
         }
-        if ((sprites[i]->type == flamesprite || sprites[i]->type == weaponflamesprite || sprites[i]->type == weaponshinesprite || sprites[i]->type == bloodflamesprite)) {
+        if ((sprites[i]->type == flamesprite ||
+             sprites[i]->type == weaponflamesprite ||
+             sprites[i]->type == weaponshinesprite ||
+             sprites[i]->type == bloodflamesprite)) {
             multiplier *= sprites[i]->speed * .7;
         }
         sprites[i]->alivetime += multiplier;
@@ -367,7 +425,8 @@ void Sprite::Draw()
 
                         movepoint = 0;
                         rotationpoint = 0;
-                        whichtri = Person::players[j]->skeleton.drawmodel.LineCheck(&startpoint, &endpoint, &footpoint, &movepoint, &rotationpoint);
+                        whichtri = Person::players[j]->skeleton.drawmodel
+                            .LineCheck(&startpoint, &endpoint, &footpoint, &movepoint, &rotationpoint);
                         if (whichtri != -1) {
                             spritehit = 1;
                             Person::players[j]->DoBloodBigWhere(0, 160, sprites[i]->oldposition);
@@ -378,16 +437,30 @@ void Sprite::Draw()
 
                 whichpatchx = sprites[i]->position.x / (terrain.size / subdivision * terrain.scale);
                 whichpatchz = sprites[i]->position.z / (terrain.size / subdivision * terrain.scale);
-                if (whichpatchx > 0 && whichpatchz > 0 && whichpatchx < subdivision && whichpatchz < subdivision) {
+                if (whichpatchx > 0 &&
+                    whichpatchz > 0 &&
+                    whichpatchx < subdivision &&
+                    whichpatchz < subdivision) {
                     if (!spritehit) {
-                        for (unsigned int j = 0; j < terrain.patchobjects[whichpatchx][whichpatchz].size(); j++) {
+                        unsigned int j;
+                        for (j = 0; j < terrain.patchobjects[whichpatchx][whichpatchz].size(); j++) {
                             k = terrain.patchobjects[whichpatchx][whichpatchz][j];
                             start = sprites[i]->oldposition;
                             end = sprites[i]->position;
                             if (!spritehit) {
-                                if (Object::objects[k]->model.LineCheck(&start, &end, &colpoint, &Object::objects[k]->position, &Object::objects[k]->yaw) != -1) {
-                                    if (detail == 2 || (detail == 1 && abs(Random() % 4) == 0) || (detail == 0 && abs(Random() % 8) == 0)) {
-                                        Object::objects[k]->model.MakeDecal(blooddecalfast, DoRotation(colpoint - Object::objects[k]->position, 0, -Object::objects[k]->yaw, 0), sprites[i]->size * 1.6, .5, Random() % 360);
+                                if (Object::objects[k]->model
+                                    .LineCheck(&start, &end, &colpoint,
+                                               &Object::objects[k]->position,
+                                               &Object::objects[k]->yaw) != -1) {
+                                    if (detail == 2 ||
+                                        (detail == 1 && abs(Random() % 4) == 0) ||
+                                        (detail == 0 && abs(Random() % 8) == 0)) {
+                                        Object::objects[k]->model
+                                            .MakeDecal(blooddecalfast,
+                                                       DoRotation(colpoint -
+                                                                  Object::objects[k]->position, 0,
+                                                                  -Object::objects[k]->yaw, 0),
+                                                       sprites[i]->size * 1.6, .5, Random() % 360);
                                     }
                                     DeleteSprite(i);
                                     spritehit = 1;
@@ -397,8 +470,10 @@ void Sprite::Draw()
                     }
                 }
                 if (!spritehit) {
-                    if (sprites[i]->position.y < terrain.getHeight(sprites[i]->position.x, sprites[i]->position.z)) {
-                        terrain.MakeDecal(blooddecalfast, sprites[i]->position, sprites[i]->size * 1.6, .6, Random() % 360);
+                    if (sprites[i]->position.y < terrain.getHeight(sprites[i]->position.x,
+                                                                   sprites[i]->position.z)) {
+                        terrain.MakeDecal(blooddecalfast, sprites[i]->position,
+                                          sprites[i]->size * 1.6, .6, Random() % 360);
                         DeleteSprite(i);
                     }
                 }
@@ -414,12 +489,18 @@ void Sprite::Draw()
                 sprites[i]->velocity.y += gravity * multiplier * .5;
             }
         }
-        if (sprites[i]->type == flamesprite || sprites[i]->type == weaponflamesprite || sprites[i]->type == weaponshinesprite || sprites[i]->type == bloodflamesprite) {
+        if (sprites[i]->type == flamesprite ||
+            sprites[i]->type == weaponflamesprite ||
+            sprites[i]->type == weaponshinesprite ||
+            sprites[i]->type == bloodflamesprite) {
             sprites[i]->rotation += multiplier * sprites[i]->rotatespeed;
             sprites[i]->opacity -= multiplier * 5 / 4;
             if (sprites[i]->type != weaponshinesprite && sprites[i]->type != bloodflamesprite) {
-                if (sprites[i]->opacity < .5 && sprites[i]->opacity + multiplier * 5 / 4 >= .5 && (abs(Random() % 4) == 0 || (sprites[i]->initialsize > 2 && Random() % 2 == 0))) {
-                    MakeSprite(smoketype, sprites[i]->position, sprites[i]->velocity, .9, .9, .6, sprites[i]->size * 1.2, .4);
+                if (sprites[i]->opacity < .5 &&
+                    sprites[i]->opacity + multiplier * 5 / 4 >= .5 &&
+                    (abs(Random() % 4) == 0 || (sprites[i]->initialsize > 2 && Random() % 2 == 0))) {
+                    MakeSprite(smoketype, sprites[i]->position,
+                               sprites[i]->velocity, .9, .9, .6, sprites[i]->size * 1.2, .4);
                 }
             }
             if (sprites[i]->alivetime > .14 && (sprites[i]->type == flamesprite)) {
