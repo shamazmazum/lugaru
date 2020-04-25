@@ -325,8 +325,14 @@ public:
     inline Joint& joint(int bodypart) { return skeleton.joints[skeleton.jointlabels[bodypart]]; }
     inline XYZ& jointPos(int bodypart) { return joint(bodypart).position; }
     inline XYZ& jointVel(int bodypart) { return joint(bodypart).velocity; }
-    inline AnimationFrame& currentFrame() { return Animation::animations.at(animCurrent).frames.at(frameCurrent); }
-    inline AnimationFrame& targetFrame() { return Animation::animations.at(animTarget).frames.at(frameTarget); }
+    inline AnimationFrame& currentFrame() {
+        std::vector<AnimationFrame> frames = Animation::animations.at(animCurrent).frames;
+        return frames.at(frameCurrent % frames.size());
+    }
+    inline AnimationFrame& targetFrame() {
+        std::vector<AnimationFrame> frames = Animation::animations.at(animTarget).frames;
+        return frames.at(frameTarget % frames.size());
+    }
 
     void setProportions(float head, float body, float arms, float legs);
     float getProportion(int part) const;
