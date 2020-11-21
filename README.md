@@ -1,5 +1,5 @@
 # Lugaru HD
-[![Build Status](https://travis-ci.com/shamazmazum/lugaru.svg?branch=master)](https://travis-ci.com/shamazmazum/lugaru)
+[![Build Status](https://api.cirrus-ci.com/github/shamazmazum/lugaru.svg)](https://cirrus-ci.com/github/shamazmazum/lugaru)
 
 This repository holds the official development effort of the open source game
 Lugaru (and in particular of its HD version) for Linux, Mac OSX and Windows.
